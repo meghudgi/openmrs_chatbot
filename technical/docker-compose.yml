@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: openmrs
+      POSTGRES_USER: openmrs
+      POSTGRES_PASSWORD: openmrs
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U openmrs"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  chatbot:
+    build: .
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: openmrs
+      DB_USER: openmrs
+      DB_PASSWORD: openmrs
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENAI_MODEL: gpt-4-turbo
+      EMBEDDING_MODEL: text-embedding-3-small
+      LOG_LEVEL: INFO
+    volumes:
+      - ./knowledge_base:/app/knowledge_base
+      - ./logs:/app/logs
+      - ./responses.json:/app/responses.json
+    depends_on:
+      postgres:
+        condition: service_healthy
+    stdin_open: true
+    tty: true
+
+volumes:
+  postgres_data:
