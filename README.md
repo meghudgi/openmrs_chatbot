@@ -57,7 +57,7 @@ The architecture focuses on reducing hallucinations and improving reliability th
 
 The project uses a two-layer intent classification pipeline to balance precision and semantic flexibility.
 
-### Layer 1 — Keyword-Based Routing
+### Layer 1 - Keyword-Based Routing
 
 A deterministic keyword-based classifier handles high-priority clinical intents such as:
 
@@ -73,7 +73,7 @@ This layer provides:
 * explainability
 * controlled routing for critical workflows
 
-### Layer 2 — Semantic Similarity Matching
+### Layer 2 - Semantic Similarity Matching
 
 If confidence from Layer 1 is insufficient, the query is passed to a semantic embedding layer using sentence embeddings (MiniLM-based embeddings).
 
