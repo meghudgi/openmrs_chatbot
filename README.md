@@ -55,7 +55,7 @@ The architecture focuses on reducing hallucinations and improving reliability th
 
 ## Hybrid Intent Classification
 
-The project uses a two-layer intent classification pipeline to balance precision and semantic flexibility.
+The Triage Agent is implemented as a prompt-engineered Ollama module with a two-layer classification pipeline combining keyword-based routing with semantic similarity matching.
 
 ### Layer 1 - Keyword-Based Routing
 
